@@ -63,13 +63,13 @@ contract BankAccount {
     Account[] public accounts;
     
     //1. create account
-    function createAccount(string name) returns (uint) {
+    function createAccount(string name) public returns (uint) {
         Account memory acc = Account(name, getTotalAccount(), 0);
         return accounts.push(acc).add(1); // accountNumber (index number)
     }
     
     //2. deposit money
-    function deposit(uint accountNumber) payable 
+    function deposit(uint accountNumber) public payable 
     accountContains(accountNumber) returns (uint) {
         require(msg.value > 0);
         
@@ -78,7 +78,7 @@ contract BankAccount {
     }
     
     //3. withdraw money
-    function withdraw(uint accountNumber, uint withdrawAmount) 
+    function withdraw(uint accountNumber, uint withdrawAmount) public 
     accountContains(accountNumber) returns (uint) {
         Account storage account = accounts[accountNumber];
         require(account.balance >= withdrawAmount);
